@@ -183,7 +183,6 @@ Bintree Delete(Bintree s,int x)				//删除二叉树结点
 			else
 			{
 				temp = s;
-				printf("%d\n\n",temp->data);
 				if( !s->Left )
 					s = s->Right;
 				else
@@ -285,7 +284,7 @@ int main()
 				cout<<endl<<endl;
 				break;
 			case 4: 
-				cout<<"层序序输出二叉树结点：";
+				cout<<"层序输出二叉树结点：";
 				CengxuTraversal(tree);
 				cout<<endl<<endl;
 				break;
