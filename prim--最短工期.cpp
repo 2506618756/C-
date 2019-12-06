@@ -1,20 +1,11 @@
 #include <stdio.h>
-#include <string.h> 
-int n,m;
+#include <string.h>
 const int maxx = 105;
 const int inf = 65535;
-int edge[maxx][maxx],dis[maxx],;
-void inti_set()
-{
-	for( int i=0; i<=maxx; i++ )
-		for( int j=0; j<=maxx; j++ )
-			if( i==j ) edge[i][j] = 0;
-			else edge[i][j] = inf;
-}
-int prim( int edge[][maxx], int m )
+int prim( int edge[][maxx], int m, int n )
 {
 	int ans = 0;
-	int book[maxx];
+	int book[maxx],dis[maxx];
 	memset(book,0,sizeof(book));
 	book[0] = 1;
 	for( int i=1; i<n; i++ )
@@ -42,7 +33,12 @@ int prim( int edge[][maxx], int m )
 }
 int main()
 {
-	inti_set();
+	int n,m;
+	int edge[maxx][maxx];
+	for( int i=0; i<=maxx; i++ )
+		for( int j=0; j<=maxx; j++ )
+			if( i==j ) edge[i][j] = 0;
+			else edge[i][j] = inf;
 	scanf("%d%d",&n,&m);
 	for( int i=0; i<m; i++ )
 	{
@@ -51,7 +47,7 @@ int main()
 		if( edge[a][b]>c )
 			edge[a][b] = edge[b][a] = c;
 	}
-	int ans = prim(edge,m);
+	int ans = prim(edge,m,n);
 	if( ans == -1 )
 		printf("Impossible\n");
 	else
