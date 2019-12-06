@@ -1,6 +1,7 @@
-#include <iostream>
-#include <algorithm>
-#include <cstdio>
+//#include <iostream>
+//#include <algorithm>
+#include <stdio.h>
+#include <stdlib.h>
 using namespace std;
 const int maxx = 105;
 int s[maxx];
@@ -26,11 +27,11 @@ int find_set( int x )
 	}
 	return r;
 }
-bool cmp( Edge a, Edge b ){ return a.w<b.w; }
+int cmp( const void *a, const void *b ){ return (*(Edge *)a).w > (*(Edge *)b).w ? 1 : -1;  }
 int kruskal()
 {
 	int ans = 0,cnt = 0;
-	sort( edge, edge+m, cmp );
+	qsort( edge, m, sizeof(edge[0]), cmp );
 	for( int i=0; i<m; i++ )
 	{
 		int x = find_set( edge[i].from );
