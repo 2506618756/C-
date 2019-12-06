@@ -1,14 +1,23 @@
-#include <iostream>
-#include <cstdio>
-#include <cmath>
-using namespace std;
+#include <stdio.h>
+
+double Fac(int x)
+{
+	if( x<0 )
+		return 0;
+	else if( x==0 )
+		return 1;
+	else
+	{
+		int sum = 1;
+		for( int i=1; i<=x; i++ )
+			sum *= i;
+		return double(sum);	
+	}
+}
 int main()
 {
-	int n,m;
-	double sum=0;
-	scanf("%d%d",&m,&n);
-	for( int i=m; i<=n; i++ )
-		sum += 1.0*pow(i,2) + 1.0/i;
-	printf("%.6f\n",sum);
-	return 0;
+    int n;
+    scanf("%d", &n);
+    printf("%g\n", Fac(n));
+    return 0;
 }
