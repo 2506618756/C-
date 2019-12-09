@@ -6,41 +6,40 @@
 using namespace std;
 struct node{
 	int num,id;
-	bool friend operator < ( node a,node b )
+	bool friend operator < (node a,node b)
 	{
-		if( a.num!=b.num )
-			return a.num < b.num;
+		if( a.num!=b.num)
+			return a.num<b.num;
 		else
-			return a.id > b.id;
+			return a.id>b.id;
 	}
 };
 int main()
 {
 	ios::sync_with_stdio(false);
-	int n,num,k;
-	string s;
+	int n,k,num;
+	node t;
 	while( ~scanf("%d",&n) )
 	{
 		int cnt = 0;
-		node t;
+		string s;
 		priority_queue<node> q[4];
 		while(n--)
 		{
 			cin>>s;
-			if( s=="IN" )
+			if(s=="IN")
 			{
-				cin>>k>>num;
-				t.id = ++cnt;
-				t.num = num;
+				cin>>num>>k;
+				t.num = num; t.id = ++cnt;
 				q[k].push(t);
 			}
 			else
 			{
-				cin>>k;
-				if(!q[k].empty())
+				cin>>num;
+				if(!q[num].empty())
 				{
-					t = q[k].top();
-					q[k].pop();
+					t = q[num].top();
+					q[num].pop();
 					printf("%d\n",t.id);
 				}
 				else
