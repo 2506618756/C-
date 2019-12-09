@@ -8,23 +8,18 @@ int main()
 	int x;
 	int num;
 	scanf("%d",&num);
-	while( ~scanf("%d",&x) && x>=0 )
+	for( int i=0; i<num; i++ )
 	{
-		q.push_front(x);
+		scanf("%d",&x);
+		q.push_back(x);
 	}
 	list<int>::iterator p;
-	int cnt=0;
+	int flag = 0;
 	for( p=q.begin(); p!=q.end(); p++ )
 	{
-		printf("%d ",*p);
+		if(flag) printf(" ");
+		else flag++;
+		printf("%d",*p);
 	}
-	printf("\n");
-	q.reverse();
-	for( p=q.begin(); p!=q.end(); p++ )
-	{
-		printf("%d ",*p);
-	}
-	printf("\n");
-	printf("NULL\n");
 	return 0;
 }
