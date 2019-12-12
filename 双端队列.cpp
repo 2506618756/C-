@@ -68,3 +68,21 @@ int main()
     }
     return 0;
 }
+bool Push( ElementType X, Deque D )
+{
+	if( ( D->Front + D->Rear ) == D->MaxSize - 1 )
+		return false;
+	D->Front = ( D->Front - 1 + D->MaxSize ) % D->MaxSize;
+	D->Data[D->Front] = X;
+	return true;
+}
+ElementType Pop( Deque D )
+{
+	if( D->Front == D->Rear )
+		return ERROR;
+	ElementType temp = D->Data[D->Front];
+	D->Front = ( D->Front + 1 ) % D->MaxSize;
+	return temp;
+}
+bool Inject( ElementType X, Deque D );
+ElementType Eject( Deque D );
