@@ -1,111 +1,130 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define ERROR NULL
 typedef int ElementType;
-typedef struct LNode *PtrToLNode;
-struct LNode {
+typedef struct TNode *Position;
+typedef Position BinTree;
+struct TNode{
     ElementType Data;
-    PtrToLNode Next;
+    BinTree Left;
+    BinTree Right;
 };
-typedef PtrToLNode Position;
-typedef PtrToLNode List;
 
-Position Find( List L, ElementType X );
-List Insert( List L, ElementType X, Position P );
-List Delete( List L, Position P );
+void PreorderTraversal( BinTree BT ); /* 先序遍历，由裁判实现，细节不表 */
+void InorderTraversal( BinTree BT );  /* 中序遍历，由裁判实现，细节不表 */
+
+BinTree Insert( BinTree BST, ElementType X );
+BinTree Delete( BinTree BST, ElementType X );
+Position Find( BinTree BST, ElementType X );
+Position FindMin( BinTree BST );
+Position FindMax( BinTree BST );
 
 int main()
 {
-    List L;
+    BinTree BST, MinP, MaxP, Tmp;
     ElementType X;
-    Position P, tmp;
-    int N;
+    int N, i;
 
-    L = NULL;
+    BST = NULL;
     scanf("%d", &N);
-    while ( N-- ) {
+    for ( i=0; i<N; i++ ) {
         scanf("%d", &X);
-        L = Insert(L, X, L);
-        if ( L==ERROR ) printf("Wrong Answer\n");
+        BST = Insert(BST, X);
     }
+    printf("Preorder:"); PreorderTraversal(BST); printf("\n");
+    MinP = FindMin(BST);
+    MaxP = FindMax(BST);
     scanf("%d", &N);
-    while ( N-- ) {
+    for( i=0; i<N; i++ ) {
         scanf("%d", &X);
-        P = Find(L, X);
-        if ( P == ERROR )
-            printf("Finding Error: %d is not in.\n", X);
+        Tmp = Find(BST, X);
+        if (Tmp == NULL) printf("%d is not found\n", X);
         else {
-            L = Delete(L, P);
-            printf("%d is found and deleted.\n", X);
-            if ( L==ERROR )
-                printf("Wrong Answer or Empty List.\n");
+            printf("%d is found\n", Tmp->Data);
+            if (Tmp==MinP) printf("%d is the smallest key\n", Tmp->Data);
+            if (Tmp==MaxP) printf("%d is the largest key\n", Tmp->Data);
         }
     }
-    L = Insert(L, X, NULL);
-    if ( L==ERROR ) printf("Wrong Answer\n");
-    else
-        printf("%d is inserted as the last element.\n", X);
-    P = (Position)malloc(sizeof(struct LNode));
-    tmp = Insert(L, X, P);
-    if ( tmp!=ERROR ) printf("Wrong Answer\n");
-    tmp = Delete(L, P);
-    if ( tmp!=ERROR ) printf("Wrong Answer\n");
-    for ( P=L; P; P = P->Next ) printf("%d ", P->Data);
+    scanf("%d", &N);
+    for( i=0; i<N; i++ ) {
+        scanf("%d", &X);
+        BST = Delete(BST, X);
+    }
+    printf("Inorder:"); InorderTraversal(BST); printf("\n");
+
     return 0;
 }
-Position Find( List L, ElementType X )
+BinTree Insert( BinTree BST, ElementType X )
 {
-	while(L)
+	if(!BST)
 	{
-		if(L->Data==X)
-			return L;
-		L = L->Next;
-	}
-	return ERROR;
-}
-List Insert( List L, ElementType X, Position P )
-{
-	List L2 = L;
-	List t = (List)malloc(sizeof(List));
-	t->Data = X;
-	if( L==P )
-	{
-		t->Next = L;
+		BinTree t = (BinTree)malloc(sizeof(BinTree));
+		t->Data = X;
+		t->Left = t->Right = NULL;
 		return t;
 	}
-	while(L2)
+	else
 	{
-		if(L2->Next==P)
-		{
-			t->Next = P->Next;
-			L2->Next = t;
-			return L;
-		}
-		L2 = L2->Next;
+		if(X<BST->Data)
+			BST->Left = Insert( BST->Left, X );
+		else if(X>BST->Data)
+			BST->Right = Insert( BST->Right, X );
 	}
-	printf("Wrong Position for Insertion\n");
-	return ERROR;
+	return BST;
 }
-List Delete( List L, Position P )
+BinTree Delete( BinTree BST, ElementType X )
 {
-	List head = L;
-	if(L==P)
+	BinTree tmp;
+	if(!BST)
+		printf("Not Found\n");
+	else
 	{
-		L = L->Next;
-		free(P);
-		return L;
-	}
-	while(L)
-	{
-		if(L->Next==P)
+		if(X<BST->Data)
+			BST->Left = Delete( BST->Left, X );
+		else if(X>BST->Data)
+			BST->Right = Delete( BST->Right, X );
+		else
 		{
-			L->Next = P->Next;
-			free(P);
-			return head;
+			if( BST->Left && BST->Right )
+			{
+				tmp = FindMin(BST->Right);
+				BST->Data = tmp->Data;
+				BST->Right = Delete( BST->Right, BST->Data );
+			}
+			else
+			{
+				if(!BST->Left)
+					BST = BST->Right;
+				else
+					BST = BST->Left;
+				free(tmp);
+			}
 		}
-		L = L->Next;
 	}
-	printf("Wrong Position for Deletion\n");
-	return ERROR;
+	return BST;
+}
+Position Find( BinTree BST, ElementType X )
+{
+	if(!BST) return NULL;
+	if(X>BST->Data)
+		return Find( BST->Right, X );
+	else if(X<BST->Data)
+		return Find( BST->Left, X );
+	else
+		return BST;
+}
+Position FindMin( BinTree BST )
+{
+	if(!BST) return NULL;
+	else if(!BST->Left)
+		return BST;
+	else
+		return FindMin( BST->Left );
+}
+Position FindMax( BinTree BST )
+{
+	if(BST)
+		while(BST->Right)
+			BST = BST->Right;
+	return BST;
 }
