@@ -4,7 +4,7 @@ class CMyClassA {
     int val;
 public:
     CMyClassA(int);
-    void print(); 
+    void virtual print(); 
 };
 CMyClassA::CMyClassA(int arg) {
     val = arg;
@@ -23,7 +23,7 @@ class CMyClassB :public CMyClassA{
 		
 		printf("B:%d\n", val);	
 	}
-	void  print()
+	void print()
 	{
 	 printf("kkkkkkkkkkkkkkkkkkk\n");
 	}
