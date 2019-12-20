@@ -23,3 +23,29 @@ int main()
 
     return 0;
 }
+void input()
+{
+	int x;
+	struct stud_node *p;
+	while( ~scanf("%d",&x) && x!=0 )
+	{
+		p = (struct stud_node *)malloc(sizeof(struct stud_node));
+		p->num = x;
+		scanf("%s",p->name);
+		scanf("%d",&p->score);
+		if( head==NULL )
+		{
+			head = p;
+		}
+		else
+		{
+			tail = head;
+			while(tail->next!=NULL)
+			{
+				tail = tail->next;
+			}
+			tail->next = p;
+		}
+		p->next = NULL;
+	}
+}
