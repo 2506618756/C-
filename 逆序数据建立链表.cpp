@@ -19,3 +19,17 @@ int main()
 
     return 0;
 }
+struct ListNode *createlist()
+{
+	struct ListNode *head,*p;
+	head = NULL;
+	int x;
+	while( ~scanf("%d",&x) && x!=-1 )
+	{
+		p = (struct ListNode *)malloc(sizeof(struct ListNode));
+		p->data = x;
+		p->next = head;
+		head = p;
+	}
+	return head;
+}
