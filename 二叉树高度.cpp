@@ -19,3 +19,16 @@ int main()
     printf("%d\n", GetHeight(BT));
     return 0;
 }
+int GetHeight( BinTree BT )
+{
+	int HL,HR,MaxH;
+	if(BT)
+	{
+		HL = GetHeight(BT->Left);
+		HR = GetHeight(BT->Right);
+		MaxH = HL>HR? HL : HR;
+        return (MaxH+1);
+	}
+	else
+    return 0;
+}
