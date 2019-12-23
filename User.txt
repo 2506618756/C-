@@ -1,0 +1,54 @@
+package com;
+
+public class User {
+	private String id;
+	private String pwd;
+	private String email;
+	private String address;
+	private String number;
+	public User(){}
+	public User(String id,String pwd,String email,String address,String number){
+		this.id = id;
+		this.pwd = pwd;
+		this.email = id + "@imnu.com";
+		this.address = address;
+		this.number = number;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getPwd() {
+		return pwd;
+	}
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email + "@imnu.com";
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public void showinfo(){
+		System.out.println("用户ID：      "+getId());
+		System.out.println("用户密码：    "+getPwd());
+		System.out.println("邮箱地址为："+getEmail());
+		System.out.println("家庭地址为："+getAddress());
+		System.out.println("手机号码为："+getNumber());
+	}
+}
