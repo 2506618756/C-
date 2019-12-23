@@ -1,0 +1,13 @@
+package com;
+
+public class Test {
+	public static void main(String[] args) {
+		WuMingFen f1 = new WuMingFen("ЕЈИв",3,true);
+		f1.check();
+		WuMingFen f2 = new WuMingFen("ЕЈИв",2);
+		f2.setLikeSoup(false);
+		f2.check();
+		WuMingFen f3 = new WuMingFen();
+		f3.check();
+	}
+}
