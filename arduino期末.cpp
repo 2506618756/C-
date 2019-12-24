@@ -16,7 +16,7 @@ void loop() {
   for( int i = 0; message[i]!='\0'; i++ )
   {
     if( message[i]>='a' && message[i]<='z' )
-       message[i] -= 32;
+        message[i] -= 32;
   	int index = (int)(message[i]-65);
      for( int j=0; news[index][j]!='\0'; j++ )
      {
